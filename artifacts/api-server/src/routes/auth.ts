@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { db } from "@workspace/db";
 import { usersTable } from "@workspace/db/schema";
 import { eq } from "drizzle-orm";
@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 
-const router: IRouter = Router();
+const router = Router();
 const JWT_SECRET = process.env.SESSION_SECRET ?? "fallback-dev-secret";
 
 const loginSchema = z.object({
