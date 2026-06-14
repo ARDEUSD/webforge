@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { db } from "@workspace/db";
+import { db, eq, and, lt, ilike } from "@workspace/db";
 import {
   desksTable,
   sessionsTable,
