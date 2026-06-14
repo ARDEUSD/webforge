@@ -1,9 +1,9 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { db } from "@workspace/db";
 import { desksTable } from "@workspace/db/schema";
 import { eq, count } from "drizzle-orm";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.get("/stats", async (_req, res) => {
   const [totalRow] = await db.select({ count: count() }).from(desksTable);
