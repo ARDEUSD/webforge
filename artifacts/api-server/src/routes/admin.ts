@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { db } from "@workspace/db";
 import {
   desksTable,
@@ -8,7 +8,7 @@ import {
 import { eq, desc } from "drizzle-orm";
 import { requireAdmin } from "../middleware/auth.js";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.use(requireAdmin);
 
