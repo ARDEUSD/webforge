@@ -1,4 +1,4 @@
-import { Router, type Request, type Response } from "express";
+import { Router } from "express";
 import { db, eq, and, lt, ilike } from "@workspace/db";
 import {
   desksTable,
@@ -33,7 +33,7 @@ async function autoReleaseAway() {
   }
 }
 
-router.get("/desks", async (_req: Request, res: Response) => {
+router.get("/desks", async (_req, res) => {
   await autoReleaseAway();
   const rows = await db
     .select({ desk: desksTable, session: sessionsTable })
@@ -44,7 +44,7 @@ router.get("/desks", async (_req: Request, res: Response) => {
   res.json(rows.map(({ desk, session }) => ({ ...desk, session: session ?? null })));
 });
 
-router.get("/desks/search", async (req: Request, res: Response) => {
+router.get("/desks/search", async (req, res) => {
   const q = String(req.query.q ?? "").trim().toLowerCase();
   if (!q) { res.json([]); return; }
 
@@ -97,7 +97,7 @@ router.get("/desks/my-desk", async (req, res) => {
   res.json({ ...desk, session: session ?? null });
 });
 
-router.get("/desks/:id", async (req, res) => {
+router.get("/desks", async (_req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
@@ -117,7 +117,7 @@ const checkinSchema = z.object({
   studentId: z.string().min(1).max(50),
 });
 
-router.get("/desks/:id", async (req, res) => {
+router.get("/desks", async (_req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
@@ -155,7 +155,7 @@ router.get("/desks/:id", async (req, res) => {
   res.json({ success: true, message: `Checked in to Desk ${desk.number}` });
 });
 
-router.get("/desks/:id", async (req, res) => {
+router.get("/desks", async (_req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
@@ -188,7 +188,7 @@ router.get("/desks/:id", async (req, res) => {
   res.json({ success: true, message: `Desk ${desk.number} marked as away` });
 });
 
-router.get("/desks/:id", async (req, res) => {
+router.get("/desks", async (_req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
