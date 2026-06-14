@@ -5,7 +5,7 @@ import {
   sessionsTable,
   activityLogTable,
 } from "@workspace/db/schema";
-import { eq, and, lt, ilike } from "drizzle-orm";
+
 import { z } from "zod";
 
 const router = Router();
