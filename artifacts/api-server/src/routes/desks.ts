@@ -33,7 +33,7 @@ async function autoReleaseAway() {
   }
 }
 
-router.get("/desks", async (_req, res) => {
+router.get("/desks", async (_req: Request, res: Response) => {
   await autoReleaseAway();
   const rows = await db
     .select({ desk: desksTable, session: sessionsTable })
@@ -44,7 +44,7 @@ router.get("/desks", async (_req, res) => {
   res.json(rows.map(({ desk, session }) => ({ ...desk, session: session ?? null })));
 });
 
-router.get("/desks/search", async (req, res) => {
+router.get("/desks/search", async (req: Request, res: Response) => {
   const q = String(req.query.q ?? "").trim().toLowerCase();
   if (!q) { res.json([]); return; }
 
@@ -74,7 +74,7 @@ router.get("/desks/search", async (req, res) => {
   res.json(filtered);
 });
 
-router.get("/desks/my-desk", async (req, res) => {
+router.get("/desks/search", async (req: Request, res: Response) => {
   const studentId = String(req.query.studentId ?? "").trim();
   if (!studentId) {
     res.status(400).json({ error: "studentId query param is required" });
@@ -97,7 +97,7 @@ router.get("/desks/my-desk", async (req, res) => {
   res.json({ ...desk, session: session ?? null });
 });
 
-router.get("/desks/:id", async (req, res) => {
+router.get("/desks/search", async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
@@ -117,7 +117,7 @@ const checkinSchema = z.object({
   studentId: z.string().min(1).max(50),
 });
 
-router.post("/desks/:id/checkin", async (req, res) => {
+router.get("/desks/search", async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
@@ -155,7 +155,7 @@ router.post("/desks/:id/checkin", async (req, res) => {
   res.json({ success: true, message: `Checked in to Desk ${desk.number}` });
 });
 
-router.post("/desks/:id/away", async (req, res) => {
+router.get("/desks/search", async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
@@ -188,7 +188,7 @@ router.post("/desks/:id/away", async (req, res) => {
   res.json({ success: true, message: `Desk ${desk.number} marked as away` });
 });
 
-router.post("/desks/:id/checkout", async (req, res) => {
+router.get("/desks/search", async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
