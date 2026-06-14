@@ -1,9 +1,9 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { db } from "@workspace/db";
 import { activityLogTable } from "@workspace/db/schema";
 import { desc } from "drizzle-orm";
 
-const router: IRouter = Router();
+const router = Router();
 
 router.get("/activity", async (req, res) => {
   const limit = Math.min(parseInt(String(req.query.limit ?? "20")), 50);
