@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router } from "express";
 import { db } from "@workspace/db";
 import {
   desksTable,
@@ -8,7 +8,7 @@ import {
 import { eq, and, lt, ilike } from "drizzle-orm";
 import { z } from "zod";
 
-const router: IRouter = Router();
+const router = Router();
 
 const AWAY_TIMEOUT_MS = 30 * 60 * 1000;
 
