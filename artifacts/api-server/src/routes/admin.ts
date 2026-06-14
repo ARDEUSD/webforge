@@ -6,7 +6,7 @@ import {
   activityLogTable,
 } from "@workspace/db/schema";
 import { eq, desc } from "drizzle-orm";
-import { requireAdmin } from "../middleware/auth";
+import { requireAdmin } from "../middleware/auth.js";
 
 const router: IRouter = Router();
 
