@@ -74,7 +74,7 @@ router.get("/desks/search", async (req: Request, res: Response) => {
   res.json(filtered);
 });
 
-router.get("/desks/search", async (req: Request, res: Response) => {
+router.get("/desks/my-desk", async (req, res) => {
   const studentId = String(req.query.studentId ?? "").trim();
   if (!studentId) {
     res.status(400).json({ error: "studentId query param is required" });
@@ -97,7 +97,7 @@ router.get("/desks/search", async (req: Request, res: Response) => {
   res.json({ ...desk, session: session ?? null });
 });
 
-router.get("/desks/search", async (req: Request, res: Response) => {
+router.get("/desks/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
@@ -117,7 +117,7 @@ const checkinSchema = z.object({
   studentId: z.string().min(1).max(50),
 });
 
-router.get("/desks/search", async (req: Request, res: Response) => {
+router.get("/desks/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
@@ -155,7 +155,7 @@ router.get("/desks/search", async (req: Request, res: Response) => {
   res.json({ success: true, message: `Checked in to Desk ${desk.number}` });
 });
 
-router.get("/desks/search", async (req: Request, res: Response) => {
+router.get("/desks/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
@@ -188,7 +188,7 @@ router.get("/desks/search", async (req: Request, res: Response) => {
   res.json({ success: true, message: `Desk ${desk.number} marked as away` });
 });
 
-router.get("/desks/search", async (req: Request, res: Response) => {
+router.get("/desks/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid desk ID" }); return; }
 
