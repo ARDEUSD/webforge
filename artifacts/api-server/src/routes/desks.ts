@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type Request, type Response } from "express";
 import { db, eq, and, lt, ilike } from "@workspace/db";
 import {
   desksTable,
